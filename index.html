@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nukkuuko Ilkka tänä yönä?</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="hero-card">
+        <p class="eyebrow">Ilkan yörytmi</p>
+        <h1>Nukkuuko Ilkka tänä yönä?</h1>
+
+        <div class="status-panel" aria-live="polite">
+          <p class="status-label">Tämän yön vastaus</p>
+          <p id="statusAnswer" class="status-answer">Ladataan...</p>
+          <p id="statusDate" class="status-date"></p>
+        </div>
+
+        <div class="legend">
+          <span class="legend-item">
+            <span class="legend-swatch awake"></span> Hereillä
+          </span>
+          <span class="legend-item">
+            <span class="legend-swatch asleep"></span> Nukkuu
+          </span>
+        </div>
+      </section>
+
+      <section class="calendar-card">
+        <div class="calendar-toolbar">
+          <button id="prevMonthButton" class="nav-button" type="button">
+            Edellinen
+          </button>
+          <div>
+            <p class="calendar-kicker">Kuukausinäkymä</p>
+            <h2 id="calendarTitle">Kuukausi</h2>
+          </div>
+          <button id="nextMonthButton" class="nav-button" type="button">
+            Seuraava
+          </button>
+        </div>
+
+        <div class="weekday-row" aria-hidden="true">
+          <span>Ma</span>
+          <span>Ti</span>
+          <span>Ke</span>
+          <span>To</span>
+          <span>Pe</span>
+          <span>La</span>
+          <span>Su</span>
+        </div>
+
+        <div id="calendarGrid" class="calendar-grid"></div>
+      </section>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
