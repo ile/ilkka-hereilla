@@ -217,6 +217,7 @@ h1 {
   cursor: pointer;
   appearance: none;
   -webkit-appearance: none;
+  overflow: hidden;
 }
 
 .calendar-day.awake {
@@ -251,6 +252,8 @@ h1 {
   color: rgba(47, 36, 23, 0.8);
   font-size: 0.74rem;
   line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @media (max-width: 720px) {
@@ -289,6 +292,6 @@ h1 {
   }
 
   .day-status {
-    font-size: 0.82rem;
+    display: none;
   }
 }
