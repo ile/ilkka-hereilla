@@ -1,4 +1,4 @@
-const BASE_NIGHT = new Date(2026, 2, 25);
+const BASE_NIGHT = new Date(2026, 2, 24);
 const MONTH_NAMES = [
   "Tammikuu",
   "Helmikuu",
