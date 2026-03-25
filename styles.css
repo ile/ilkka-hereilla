@@ -5,10 +5,10 @@
   --card-border: rgba(77, 56, 23, 0.12);
   --text: #2f2417;
   --muted: #6e5d45;
-  --awake: #d96c3f;
-  --awake-soft: #f6d2c5;
-  --asleep: #5e7b6a;
-  --asleep-soft: #d6e5da;
+  --asleep: #d96c3f;
+  --asleep-soft: #f6d2c5;
+  --awake: #5e7b6a;
+  --awake-soft: #d6e5da;
   --today-ring: #1d4d7a;
   --shadow: 0 24px 80px rgba(75, 52, 27, 0.14);
 }
