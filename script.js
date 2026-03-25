@@ -39,11 +39,11 @@ function isIlkkaAwake(date) {
 }
 
 function getNightLabel(date) {
-  return isIlkkaAwake(date) ? "Hereillä" : "Nukkuu";
+  return isIlkkaAwake(date) ? "Valvoo" : "Nukkuu";
 }
 
 function getNightSentence(date) {
-  return isIlkkaAwake(date) ? "Ilkka on hereillä." : "Ilkka nukkuu.";
+  return isIlkkaAwake(date) ? "Ilkka valvoo." : "Ilkka nukkuu.";
 }
 
 function getDateKey(date) {
@@ -64,7 +64,7 @@ function updateTonightStatus() {
   const awake = isIlkkaAwake(today);
   const sleeping = !awake;
 
-  statusAnswer.textContent = sleeping ? "Kyllä, Ilkka nukkuu." : "Ei, Ilkka on hereillä.";
+  statusAnswer.textContent = sleeping ? "Ei, Ilkka nukkuu." : "Kyllä, Ilkka valvoo.";
   statusAnswer.classList.toggle("awake-text", !sleeping);
   statusAnswer.classList.toggle("asleep-text", sleeping);
   statusDate.textContent = `Yö ${formatLongDate(today)}`;
