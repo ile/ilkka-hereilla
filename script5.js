@@ -59,12 +59,23 @@ function formatLongDate(date) {
   }).format(date);
 }
 
+function isNightTime(date) {
+  const hours = date.getHours();
+  return hours >= 0 && hours < 11;
+}
+
 function updateTonightStatus() {
   const today = new Date();
   const awake = isIlkkaAwake(today);
   const sleeping = !awake;
+  const nightTime = isNightTime(today);
 
-  statusAnswer.textContent = sleeping ? "Ei, Ilkka nukkuu." : "Kyllä, Ilkka valvoo.";
+  if (nightTime && sleeping) {
+    statusAnswer.textContent = "Ei, Ilkka nukkuu nyt.";
+  } else {
+    statusAnswer.textContent = sleeping ? "Ei, Ilkka nukkuu." : "Kyllä, Ilkka valvoo.";
+  }
+
   statusAnswer.classList.toggle("awake-text", !sleeping);
   statusAnswer.classList.toggle("asleep-text", sleeping);
   statusDate.textContent = `Yö ${formatLongDate(today)}`;
@@ -149,3 +160,9 @@ nextMonthButton.addEventListener("click", () => {
 
 updateTonightStatus();
 renderCalendar();
+
+// Update the question text
+const questionElement = document.querySelector("#question");
+if (questionElement) {
+  questionElement.textContent = "Valvooko Ilkka seuraavana yönä?";
+}
