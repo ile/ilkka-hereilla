@@ -1,16 +1,19 @@
 :root {
-  --bg: #f3efe5;
-  --bg-accent: #e7ddc8;
-  --card: rgba(255, 252, 245, 0.88);
-  --card-border: rgba(77, 56, 23, 0.12);
-  --text: #2f2417;
-  --muted: #6e5d45;
+  --sky-top: #dff2ff;
+  --sky-bottom: #b8daf6;
+  --horizon: #eef8ff;
+  --card: rgba(255, 255, 255, 0.8);
+  --card-border: rgba(49, 91, 124, 0.14);
+  --text: #213447;
+  --muted: #5d768b;
   --asleep: #d96c3f;
   --asleep-soft: #f6d2c5;
   --awake: #5e7b6a;
   --awake-soft: #d6e5da;
   --today-ring: #1d4d7a;
-  --shadow: 0 24px 80px rgba(75, 52, 27, 0.14);
+  --shadow: 0 24px 80px rgba(56, 96, 132, 0.16);
+  --cloud: rgba(255, 255, 255, 0.92);
+  --cloud-shade: rgba(173, 208, 235, 0.28);
 }
 
 * {
@@ -22,9 +25,10 @@ body {
   min-height: 100vh;
   font-family: Georgia, "Times New Roman", serif;
   color: var(--text);
+  overflow-x: hidden;
   background:
-    radial-gradient(circle at top left, rgba(255, 255, 255, 0.65), transparent 30%),
-    linear-gradient(135deg, var(--bg) 0%, var(--bg-accent) 100%);
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.8), transparent 30%),
+    linear-gradient(180deg, var(--sky-top) 0%, #c8e5fb 42%, var(--sky-bottom) 100%);
 }
 
 body::before,
@@ -37,22 +41,126 @@ body::after {
 }
 
 body::before {
-  top: 4rem;
-  right: -6rem;
-  width: 18rem;
-  height: 18rem;
-  background: rgba(217, 108, 63, 0.14);
+  top: auto;
+  right: auto;
+  left: -8rem;
+  bottom: -7rem;
+  width: 28rem;
+  height: 14rem;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.5), transparent 70%);
 }
 
 body::after {
-  left: -4rem;
-  bottom: -5rem;
-  width: 20rem;
-  height: 20rem;
-  background: rgba(94, 123, 106, 0.14);
+  left: auto;
+  bottom: auto;
+  top: -7rem;
+  right: -6rem;
+  width: 24rem;
+  height: 24rem;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.36), transparent 70%);
+}
+
+.sky {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.sky::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 18vh;
+  background: linear-gradient(180deg, transparent, rgba(238, 248, 255, 0.95));
+}
+
+.cloud {
+  position: absolute;
+  left: -22rem;
+  width: 11rem;
+  height: 3.8rem;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--cloud), rgba(255, 255, 255, 0.72));
+  box-shadow:
+    0 0.9rem 1.8rem rgba(114, 151, 181, 0.14),
+    inset -0.8rem -0.5rem 0 var(--cloud-shade);
+  opacity: 0.9;
+}
+
+.cloud::before,
+.cloud::after {
+  content: "";
+  position: absolute;
+  bottom: 0.7rem;
+  background: inherit;
+  border-radius: 50%;
+}
+
+.cloud::before {
+  left: 1.2rem;
+  width: 4.4rem;
+  height: 4.4rem;
+}
+
+.cloud::after {
+  right: 1.1rem;
+  width: 5rem;
+  height: 5rem;
+}
+
+.cloud-one {
+  top: 12vh;
+  --cloud-scale: 0.92;
+  animation: drift 66s linear infinite;
+}
+
+.cloud-two {
+  top: 28vh;
+  --cloud-scale: 1.18;
+  animation: drift 84s linear infinite;
+  animation-delay: -18s;
+}
+
+.cloud-three {
+  top: 48vh;
+  --cloud-scale: 0.78;
+  animation: drift 58s linear infinite;
+  animation-delay: -34s;
+}
+
+.cloud-four {
+  top: 64vh;
+  --cloud-scale: 1.06;
+  animation: drift 92s linear infinite;
+  animation-delay: -52s;
+}
+
+.cloud-five {
+  top: 8vh;
+  --cloud-scale: 0.68;
+  animation: drift 74s linear infinite;
+  animation-delay: -41s;
+}
+
+@keyframes drift {
+  from {
+    transform: translateX(-24rem) translateY(0) scale(var(--cloud-scale, 1));
+  }
+
+  50% {
+    transform: translateX(50vw) translateY(0.45rem) scale(var(--cloud-scale, 1));
+  }
+
+  to {
+    transform: translateX(calc(100vw + 26rem)) translateY(0) scale(var(--cloud-scale, 1));
+  }
 }
 
 .app-shell {
+  position: relative;
+  z-index: 1;
   width: min(1100px, calc(100% - 2rem));
   margin: 0 auto;
   padding: 1.25rem 0 2rem;
@@ -103,8 +211,8 @@ h1 {
   gap: 0.25rem;
   padding: 1rem;
   border-radius: 22px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 242, 230, 0.9));
-  border: 1px solid rgba(77, 56, 23, 0.08);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(227, 242, 255, 0.92));
+  border: 1px solid rgba(49, 91, 124, 0.08);
 }
 
 .status-label,
@@ -172,8 +280,8 @@ h1 {
 .nav-button {
   border: 0;
   border-radius: 999px;
-  background: #2f2417;
-  color: #fff9ef;
+  background: #2a5878;
+  color: #f8fcff;
   padding: 0.62rem 0.9rem;
   font: inherit;
   cursor: pointer;
@@ -184,7 +292,7 @@ h1 {
 
 .nav-button:hover,
 .nav-button:focus-visible {
-  background: #453522;
+  background: #356d93;
   transform: translateY(-1px);
 }
 
@@ -293,5 +401,24 @@ h1 {
 
   .day-status {
     display: none;
+  }
+
+  .sky::after {
+    height: 12vh;
+  }
+
+  .cloud {
+    width: 8.5rem;
+    height: 3.1rem;
+  }
+
+  .cloud::before {
+    width: 3.7rem;
+    height: 3.7rem;
+  }
+
+  .cloud::after {
+    width: 4.1rem;
+    height: 4.1rem;
   }
 }
