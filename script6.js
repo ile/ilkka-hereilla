@@ -15,7 +15,7 @@ const MONTH_NAMES = [
 ];
 
 const statusAnswer = document.querySelector("#statusAnswer");
-const statusDate = document.querySelector("#statusDate");
+const questionElement = document.querySelector("#question");
 const calendarTitle = document.querySelector("#calendarTitle");
 const calendarGrid = document.querySelector("#calendarGrid");
 const prevMonthButton = document.querySelector("#prevMonthButton");
@@ -59,26 +59,37 @@ function formatLongDate(date) {
   }).format(date);
 }
 
+function getNightQuestion(date) {
+  const weekdayPairs = ["su-ma", "ma-ti", "ti-ke", "ke-to", "to-pe", "pe-la", "la-su"];
+  return `Valvooko Ilkka ${weekdayPairs[date.getDay()]} yönä?`;
+}
+
 function isNightTime(date) {
   const hours = date.getHours();
   return hours >= 0 && hours < 11;
 }
 
+function getRelevantNightDate(date) {
+  if (!isNightTime(date)) {
+    return startOfDay(date);
+  }
+
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate() - 1);
+}
+
 function updateTonightStatus() {
   const today = new Date();
-  const awake = isIlkkaAwake(today);
+  const relevantNightDate = getRelevantNightDate(today);
+  const awake = isIlkkaAwake(relevantNightDate);
   const sleeping = !awake;
-  const nightTime = isNightTime(today);
-
-  if (nightTime && sleeping) {
-    statusAnswer.textContent = "Ei, Ilkka nukkuu nyt.";
-  } else {
-    statusAnswer.textContent = sleeping ? "Ei, Ilkka nukkuu." : "Kyllä, Ilkka valvoo.";
-  }
+  statusAnswer.textContent = sleeping ? "Ei, Ilkka nukkuu." : "Kyllä, Ilkka valvoo.";
 
   statusAnswer.classList.toggle("awake-text", !sleeping);
   statusAnswer.classList.toggle("asleep-text", sleeping);
-  statusDate.textContent = `Yö ${formatLongDate(today)}`;
+
+  if (questionElement) {
+    questionElement.textContent = getNightQuestion(relevantNightDate);
+  }
 }
 
 function createDayCell(date, currentMonth, today) {
@@ -160,9 +171,3 @@ nextMonthButton.addEventListener("click", () => {
 
 updateTonightStatus();
 renderCalendar();
-
-// Update the question text
-const questionElement = document.querySelector("#question");
-if (questionElement) {
-  questionElement.textContent = "Valvooko Ilkka seuraavana yönä?";
-}
