@@ -131,7 +131,7 @@ body::after {
 }
 
 .cloud-four {
-  top: 64vh;
+  top: 72vh;
   --cloud-scale: 1.06;
   animation: drift 92s linear infinite;
   animation-delay: -52s;
